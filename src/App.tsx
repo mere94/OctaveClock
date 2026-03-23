@@ -11,7 +11,7 @@ export default function App() {
   const [showEmbedModal, setShowEmbedModal] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  const embedCode = `<iframe src="https://mere94.github.io/octaveclock/" width="100%" height="400" frameborder="0" style="border-radius: 12px; overflow: hidden; border: 1px solid #1e293b;"></iframe>`;
+  const embedCode = `<iframe src="https://mere94.github.io/OctaveClock/" width="100%" height="400" frameborder="0" style="border-radius: 12px; overflow: hidden; border: 1px solid #1e293b;"></iframe>`;
 
   const handleCopy = () => {
     navigator.clipboard.writeText(embedCode);
@@ -111,7 +111,7 @@ export default function App() {
       {/* Download Executable Button (Hidden in Electron) */}
       {!/electron/i.test(navigator.userAgent) && (
         <a
-          href="https://github.com/mere94/octaveclock/releases/latest/download/OctaveClock.exe"
+          href="https://github.com/mere94/OctaveClock/releases/latest/download/OctaveClock.exe"
           target="_blank"
           rel="noopener noreferrer"
           className="absolute bottom-6 right-6 flex items-center gap-2 px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white rounded-full transition-all shadow-lg border border-slate-800 hover:border-slate-700 text-sm font-medium group"
@@ -167,10 +167,10 @@ export default function App() {
             <div className="mt-4 pt-4 border-t border-slate-800">
               <p className="text-xs text-slate-500 mb-2">Per Notion, puoi incollare direttamente questo link e selezionare "Create embed":</p>
               <div className="flex items-center gap-2 bg-slate-950 border border-slate-800 rounded-lg p-2">
-                <code className="text-xs text-slate-300 flex-1 overflow-hidden text-ellipsis">https://mere94.github.io/octaveclock/</code>
+                <code className="text-xs text-slate-300 flex-1 overflow-hidden text-ellipsis">https://mere94.github.io/OctaveClock/</code>
                 <button
                   onClick={() => {
-                    navigator.clipboard.writeText("https://mere94.github.io/octaveclock/");
+                    navigator.clipboard.writeText("https://mere94.github.io/OctaveClock/");
                     setCopied(true);
                     setTimeout(() => setCopied(false), 2000);
                   }}
