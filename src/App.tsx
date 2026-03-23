@@ -42,7 +42,7 @@ export default function App() {
           x1="50"
           y1={isMajor ? "4" : isHalfHour ? "5" : "8"}
           x2="50"
-          y2="12"
+          y2={isMajor ? "16" : "12"}
           stroke={isMajor ? "#94a3b8" : isHalfHour ? "#64748b" : "#334155"}
           strokeWidth={isMajor ? "0.8" : isHalfHour ? "0.6" : "0.3"}
           strokeDasharray={isHalfHour ? "1, 1" : "none"}
@@ -68,8 +68,8 @@ export default function App() {
           {renderTicks()}
           
           {/* Top Label Window */}
-          <rect x="43" y="17.5" width="14" height="14" rx="1.5" fill="#0f172a" stroke="#94a3b8" strokeWidth="0.5" />
-          <text x="50" y="24" fill="#3b82f6" fontSize="9" fontFamily="system-ui" textAnchor="middle" dominantBaseline="central" className="font-bold" style={{ filter: 'drop-shadow(0 0 2px rgba(59, 130, 246, 0.8))' }}>
+          <rect x="43" y="21" width="14" height="14" rx="1.5" fill="#0f172a" stroke="#94a3b8" strokeWidth="0.5" />
+          <text x="50" y="27.5" fill="#3b82f6" fontSize="9" fontFamily="system-ui" textAnchor="middle" dominantBaseline="central" className="font-bold" style={{ filter: 'drop-shadow(0 0 2px rgba(59, 130, 246, 0.8))' }}>
             {topLabel}
           </text>
           
