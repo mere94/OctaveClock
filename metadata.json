@@ -1,0 +1,5 @@
+{
+  "name": "OctaveClock",
+  "description": "Un orologio circolare diviso in 64 tacchette che compie un giro ogni 8 ore.",
+  "requestFramePermissions": []
+}
