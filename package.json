@@ -5,7 +5,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "main": "electron.js",
+  "main": "electron.cjs",
   "scripts": {
     "dev": "vite --port=3000 --host=0.0.0.0",
     "build": "vite build",
@@ -23,7 +23,7 @@
     },
     "files": [
       "dist/**/*",
-      "electron.js"
+      "electron.cjs"
     ],
     "win": {
       "target": "portable"

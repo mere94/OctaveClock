@@ -111,7 +111,7 @@ export default function App() {
       {/* Download Executable Button (Hidden in Electron) */}
       {!/electron/i.test(navigator.userAgent) && (
         <a
-          href="https://github.com/mere94/OctaveClock/releases/latest/download/OctaveClock.exe"
+          href="https://github.com/mere94/OctaveClock/releases/latest/download/OctaveClock.1.0.0.exe"
           target="_blank"
           rel="noopener noreferrer"
           className="absolute bottom-6 right-6 flex items-center gap-2 px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white rounded-full transition-all shadow-lg border border-slate-800 hover:border-slate-700 text-sm font-medium group"
