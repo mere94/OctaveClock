@@ -4,10 +4,20 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { Download } from 'lucide-react';
+import { Download, Share2, Copy, Check, X } from 'lucide-react';
 
 export default function App() {
   const [time, setTime] = useState(new Date());
+  const [showEmbedModal, setShowEmbedModal] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const embedCode = `<iframe src="https://mere94.github.io/octaveclock/" width="100%" height="400" frameborder="0" style="border-radius: 12px; overflow: hidden; border: 1px solid #1e293b;"></iframe>`;
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(embedCode);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -55,7 +65,15 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4 overflow-hidden">
+    <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4 overflow-hidden relative">
+      
+      {/* Title */}
+      <div className="absolute top-6 right-8 select-none z-20">
+        <h1 className="text-xl font-bold tracking-widest text-slate-300 drop-shadow-sm">
+          <span className="text-blue-500">Octave</span>Clock
+        </h1>
+      </div>
+
       <div className="relative w-full max-w-[85vmin] aspect-square">
         {/* Outer glow */}
         <div className="absolute inset-0 bg-blue-500/10 rounded-full blur-3xl"></div>
@@ -102,6 +120,68 @@ export default function App() {
           <Download size={18} className="text-blue-500 group-hover:scale-110 transition-transform" />
           <span>Scarica .exe</span>
         </a>
+      )}
+
+      {/* Embed Button (Hidden in Electron) */}
+      {!/electron/i.test(navigator.userAgent) && (
+        <button
+          onClick={() => setShowEmbedModal(true)}
+          className="absolute bottom-6 left-6 flex items-center gap-2 px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white rounded-full transition-all shadow-lg border border-slate-800 hover:border-slate-700 text-sm font-medium group"
+          title="Incorpora su Notion o altri siti"
+        >
+          <Share2 size={18} className="text-emerald-500 group-hover:scale-110 transition-transform" />
+          <span>Embed</span>
+        </button>
+      )}
+
+      {/* Embed Modal */}
+      {showEmbedModal && (
+        <div className="absolute inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4">
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 w-full max-w-md shadow-2xl relative">
+            <button 
+              onClick={() => setShowEmbedModal(false)}
+              className="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors"
+            >
+              <X size={20} />
+            </button>
+            <h3 className="text-lg font-semibold text-white mb-2 flex items-center gap-2">
+              <Share2 size={18} className="text-emerald-500" />
+              Incorpora OctaveClock
+            </h3>
+            <p className="text-sm text-slate-400 mb-4">
+              Copia questo codice per inserire l'orologio su Notion, siti web o blog. Notion supporta nativamente i link diretti, ma puoi usare questo iframe per siti custom.
+            </p>
+            <div className="relative">
+              <pre className="bg-slate-950 border border-slate-800 rounded-xl p-4 text-xs text-slate-300 overflow-x-auto whitespace-pre-wrap">
+                {embedCode}
+              </pre>
+              <button
+                onClick={handleCopy}
+                className="absolute top-2 right-2 p-2 bg-slate-800 hover:bg-slate-700 rounded-lg text-slate-300 transition-colors"
+                title="Copia codice"
+              >
+                {copied ? <Check size={16} className="text-emerald-500" /> : <Copy size={16} />}
+              </button>
+            </div>
+            {/* Notion direct link helper */}
+            <div className="mt-4 pt-4 border-t border-slate-800">
+              <p className="text-xs text-slate-500 mb-2">Per Notion, puoi incollare direttamente questo link e selezionare "Create embed":</p>
+              <div className="flex items-center gap-2 bg-slate-950 border border-slate-800 rounded-lg p-2">
+                <code className="text-xs text-slate-300 flex-1 overflow-hidden text-ellipsis">https://mere94.github.io/octaveclock/</code>
+                <button
+                  onClick={() => {
+                    navigator.clipboard.writeText("https://mere94.github.io/octaveclock/");
+                    setCopied(true);
+                    setTimeout(() => setCopied(false), 2000);
+                  }}
+                  className="p-1.5 bg-slate-800 hover:bg-slate-700 rounded text-slate-300 transition-colors"
+                >
+                  <Copy size={14} />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
