@@ -6,6 +6,20 @@
   "version": "1.0.0",
   "type": "module",
   "main": "electron.cjs",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/OctaveClock.git"
+  },
+  "keywords": [
+    "clock",
+    "react",
+    "typescript",
+    "tailwind",
+    "vite",
+    "time",
+    "minimalist",
+    "svg"
+  ],
   "scripts": {
     "dev": "vite --port=3000 --host=0.0.0.0",
     "build": "vite build",
