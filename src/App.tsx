@@ -4,6 +4,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import { Download } from 'lucide-react';
 
 export default function App() {
   const [time, setTime] = useState(new Date());
@@ -88,6 +89,20 @@ export default function App() {
           <circle cx="50" cy="50" r="1" fill="#3b82f6" />
         </svg>
       </div>
+
+      {/* Download Executable Button (Hidden in Electron) */}
+      {!/electron/i.test(navigator.userAgent) && (
+        <a
+          href="https://github.com/mere94/octaveclock/releases/latest/download/OctaveClock.exe"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="absolute bottom-6 right-6 flex items-center gap-2 px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white rounded-full transition-all shadow-lg border border-slate-800 hover:border-slate-700 text-sm font-medium group"
+          title="Scarica OctaveClock per Windows (.exe)"
+        >
+          <Download size={18} className="text-blue-500 group-hover:scale-110 transition-transform" />
+          <span>Scarica .exe</span>
+        </a>
+      )}
     </div>
   );
 }
