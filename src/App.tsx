@@ -40,8 +40,6 @@ export default function App() {
   const current5SecInterval = Math.floor(secondsIn8HourCycle / 5);
   const rotationDegrees = current5SecInterval * (360 / (64 * 90));
 
-  const topLabel = hours >= 16 ? "24" : hours >= 8 ? "16" : "08";
-
   const getCoordinates = (radius: number, angleDeg: number) => {
     const angleRad = (angleDeg - 90) * (Math.PI / 180);
     return {
@@ -162,16 +160,6 @@ export default function App() {
           
           {/* Ticks */}
           {renderTicks()}
-          
-          {/* Top Label Window */}
-          {!showDetails && (
-            <>
-              <rect x="43" y="21" width="14" height="14" rx="1.5" fill="#0f172a" stroke="#94a3b8" strokeWidth="0.5" />
-              <text x="50" y="27.5" fill="#3b82f6" fontSize="9" fontFamily="system-ui" textAnchor="middle" dominantBaseline="central" className="font-bold" style={{ filter: 'drop-shadow(0 0 2px rgba(59, 130, 246, 0.8))' }}>
-                {topLabel}
-              </text>
-            </>
-          )}
 
           {/* Detailed Numbers */}
           {showDetails && renderDetailedNumbers()}
