@@ -21,24 +21,25 @@ export default function App() {
   };
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    let frameId: number;
+    const tick = () => {
       setTime(new Date());
-    }, 1000);
-    return () => clearInterval(interval);
+      frameId = requestAnimationFrame(tick);
+    };
+    frameId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frameId);
   }, []);
 
   const hours = time.getHours();
   const minutes = time.getMinutes();
   const seconds = time.getSeconds();
+  const milliseconds = time.getMilliseconds();
   
-  const secondsSinceMidnight = hours * 3600 + minutes * 60 + seconds;
+  const secondsSinceMidnight = hours * 3600 + minutes * 60 + seconds + (milliseconds / 1000);
   const secondsIn8HourCycle = secondsSinceMidnight % (8 * 3600);
   
-  const currentTick = Math.floor(secondsIn8HourCycle / 450);
-  
-  // Avanza di 1/90 di tacca ogni 5 secondi (450s / 5s = 90 intervalli per tacca)
-  const current5SecInterval = Math.floor(secondsIn8HourCycle / 5);
-  const rotationDegrees = current5SecInterval * (360 / (64 * 90));
+  // Rotazione esatta e continua (360 gradi in 8 ore)
+  const rotationDegrees = (secondsIn8HourCycle / (8 * 3600)) * 360;
 
   const getCoordinates = (radius: number, angleDeg: number) => {
     const angleRad = (angleDeg - 90) * (Math.PI / 180);
@@ -50,7 +51,6 @@ export default function App() {
 
   const renderDetailedNumbers = () => {
     const elements = [];
-    const currentCycle = hours >= 16 ? 3 : hours >= 8 ? 2 : 1;
     
     // Concentric divider circles
     elements.push(
@@ -74,9 +74,9 @@ export default function App() {
       
       elements.push(
         <g key={`hours-${i}`} fontFamily="'Jost', sans-serif" textAnchor="middle" dominantBaseline="central">
-          <text x={pos1.x} y={pos1.y} fontSize="7.5" fill={currentCycle === 1 ? "#3b82f6" : "#475569"} fontWeight={currentCycle === 1 ? "500" : "300"}>{h1}</text>
-          <text x={pos2.x} y={pos2.y} fontSize="7.5" fill={currentCycle === 2 ? "#3b82f6" : "#475569"} fontWeight={currentCycle === 2 ? "500" : "300"}>{h2}</text>
-          <text x={pos3.x} y={pos3.y} fontSize="4.5" fill={currentCycle === 3 ? "#3b82f6" : "#475569"} fontWeight={currentCycle === 3 ? "500" : "300"}>{h3}</text>
+          <text x={pos1.x} y={pos1.y} fontSize="7.5" fill="#3b82f6" fontWeight="500">{h1}</text>
+          <text x={pos2.x} y={pos2.y} fontSize="7.5" fill="#475569" fontWeight="300">{h2}</text>
+          <text x={pos3.x} y={pos3.y} fontSize="4.5" fill="#475569" fontWeight="300">{h3}</text>
         </g>
       );
     }
@@ -165,10 +165,7 @@ export default function App() {
           {showDetails && renderDetailedNumbers()}
           
           {/* Hand */}
-          <g 
-            transform={`rotate(${rotationDegrees} 50 50)`} 
-            className="transition-transform duration-1000 ease-[cubic-bezier(0.34,1.56,0.64,1)]"
-          >
+          <g transform={`rotate(${rotationDegrees} 50 50)`}>
             <line x1="50" y1="50" x2="50" y2="4" stroke="#3b82f6" strokeWidth="0.4" />
             {/* Hand glow */}
             <line x1="50" y1="50" x2="50" y2="4" stroke="#3b82f6" strokeWidth="1.5" strokeOpacity="0.3" />
